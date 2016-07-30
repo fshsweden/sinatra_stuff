@@ -137,4 +137,6 @@ post "/hej" do
     return_message[:status] = 'missing argument name, lat or lng' 
   end 
   return_message.to_json 
-end 
+end
+
+

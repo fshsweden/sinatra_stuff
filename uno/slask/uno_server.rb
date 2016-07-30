@@ -2,10 +2,6 @@
 require 'sinatra' 
 require 'json' 
 
-
-#
-# This is the Game Server
-#
 class UnoServer 
   attr_reader :deck, :pool, :hands, :number_of_hands 
   MAX_HANDS = 4 
@@ -56,34 +52,24 @@ end
 
 
 
-uno_server = UnoServer.new 
+uno = UnoServer.new 
 
+###### Sinatra Part ###### 
 
-
-
-#
-#  This is the HTTP REST interface to te Game Server
-#
-
-###### Using Sinatra ###### 
-
-set :port, 8081
+set :port, 8080
 set :environment, :production 
 
 get '/cards' do 
   return_message = {} 
   if params.has_key?('name') 
-    cards = uno_server.get_cards(params['name']) 
+    cards = uno.get_cards(params['name']) 
     if cards.class == Array 
       return_message[:status] == 'success' 
       return_message[:cards] = cards 
     else 
       return_message[:status] = 'sorry - it appears you are not part of the game' 
       return_message[:cards] = [] 
-    end
-  else
-      # invalid request!
-      # return error 
+    end 
   end 
   return_message.to_json 
 end 
@@ -95,13 +81,11 @@ get '/count' do
   return_message.to_json
 end
 
-# input: jdata[:name]
-#
-#
+
 post '/join' do 
   return_message = {} 
   jdata = JSON.parse(params[:data],:symbolize_names => true) 
-  if jdata.has_key?(:name) && uno_server.join_game(jdata[:name]) 
+  if jdata.has_key?(:name) && uno.join_game(jdata[:name]) 
     return_message[:status] = 'welcome' 
   else 
     return_message[:status] = 'sorry - game not accepting new players' 
@@ -111,7 +95,7 @@ end
 
 post '/deal' do 
   return_message = {} 
-  if uno_server.deal 
+  if uno.deal 
     return_message[:status] = 'success' 
   else 
     return_message[:status] = 'fail' 
