@@ -7,7 +7,7 @@
 require 'json' 
 require 'rest-client' 
 require 'csv'
-require_relative 'worldclient'
+require 'worldclient'
 
 #id","ident","type","name","latitude_deg","longitude_deg","elevation_ft","continent","is#o_country","iso_region","municipality","scheduled_service","gps_code","iata_code","loca#l_code","home_link","wikipedia_link","keywords"
 #airports = CSV.read('airports.csv')

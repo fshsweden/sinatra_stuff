@@ -14,7 +14,7 @@
 #
 require 'sinatra' 
 require 'json' 
-require_relative 'world'
+require 'world'
 
 require 'sinatra/activerecord'
 
