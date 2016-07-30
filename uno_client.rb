@@ -11,8 +11,7 @@ class UnoClient
   end 
 
   def join_game 
-    response = RestClient.post 
-                  'http://localhost:8080/join', 
+    response = RestClient.post 'http://localhost:8081/join', 
                   :data => {name: @name}.to_json, 
                   :accept => :json 
 
@@ -20,8 +19,7 @@ class UnoClient
   end 
 
   def get_cards 
-    response = RestClient.get 
-                  'http://localhost:8080/cards', 
+    response = RestClient.get 'http://localhost:8081/cards', 
                   {
                     :params => {
                       :name => @name
@@ -31,14 +29,14 @@ class UnoClient
   end 
 
   def deal 
-    response = RestClient.post 'http://localhost:8080/deal', 
+    response = RestClient.post 'http://localhost:8081/deal', 
                               :data =>{}.to_json, 
                               :accept => :json 
     puts response 
   end 
 
   def count 
-    response = RestClient.get 'http://localhost:8080/count' 
+    response = RestClient.get 'http://localhost:8081/count' 
                               
     puts response 
   end 
